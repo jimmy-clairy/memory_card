@@ -30,8 +30,8 @@ function handleClick(e) {
     // If lose
     if (cardsPicked.length === 2 && cardsPicked[0].attr !== cardsPicked[1].attr) {
         doubleFaces.forEach(doubleFace => doubleFace.removeEventListener('click', handleClick))
-        cardsPicked.forEach(r => setTimeout(() => {
-            r.item.classList.remove('active')
+        cardsPicked.forEach(c => setTimeout(() => {
+            c.item.classList.remove('active')
             doubleFaces.forEach(doubleFace => doubleFace.addEventListener('click', handleClick))
         }, 1000))
         coups++
@@ -50,15 +50,15 @@ function handleClick(e) {
     score.textContent = `Nombre de coups : ${coups}`
 }
 
-document.addEventListener("keydown", restart);
-function restart(e) {
+document.addEventListener("keydown", handleRestart);
+function handleRestart(e) {
     if (e.key === " ") {
         doubleFaces.forEach(doubleFace => doubleFace.classList.remove('active'))
         advice.textContent = `Tentez de gagner avec le moins d'essais possible.`
         coups = 0
         win = 0
         score.textContent = `Nombre de coups : ${coups}`
-        shuffleCards()
         doubleFaces.forEach(doubleFace => doubleFace.addEventListener('click', handleClick))
+        setTimeout(shuffleCards, 600)
     }
 }
